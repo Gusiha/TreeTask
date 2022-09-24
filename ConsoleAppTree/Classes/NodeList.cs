@@ -8,6 +8,9 @@ namespace ConsoleAppTree
     {
         private Node[] nodes;
 
+        private readonly string UnicodeSymbols = "│├─└";
+
+
         public int Length { get { return nodes.Length; } private set { } }
 
         public NodeList(int amount)
@@ -19,12 +22,10 @@ namespace ConsoleAppTree
             }
         }
 
-        //public NodeList(Node element)
-        //{
-        //    //var nodes1 = (Node[])nodes.Clone();
-        //    Array.Resize(ref nodes, nodes.Length + 1);
-        //    nodes = (Node[])nodes.Append(element);
-        //}
+        public static void Print(Node root)
+        {
+            Console.WriteLine();
+        }
 
         public int Insert(Node node)
         {
@@ -45,18 +46,33 @@ namespace ConsoleAppTree
 
         public void Delete(int index)
         {
-            /*try
-            {*/
+
             if (index < 0 || index >= nodes.Length)
                 throw new ArgumentOutOfRangeException("Incorrect index!");
             var temporary = new Node[nodes.Length - 1];
-            var j = 0;
-            for (int i = 0; i < temporary.Length; i++)
+
+            if (index == 0)
             {
-                if (j == index)
-                    j++;
-                temporary[i] = nodes[j];
+                for (int i = 1; i < Length; i++)
+                {
+                    temporary[i - 1] = nodes[i];
+                }
             }
+
+            else
+            {
+
+                for (int i = 0; i < index; i++)
+                {
+                    temporary[i] = nodes[i];
+                }
+
+                for (int i = index + 1; i < nodes.Length; i++)
+                {
+                    temporary[i - 1] = nodes[i];
+                }
+            }
+
             nodes = temporary;
 
 

@@ -13,11 +13,20 @@ class Program
     static void Main()
     {
         Node Root = new("A", 10);
-        Root.Children?.Update(2,new("TimurBlya",0));
+        Root.Children?.Update(1,new("IvanHunter",0));
+        for (int i = 0; i < Root.Children?.Length; i++)
+        {
+            Root.Children?.PrintChildren(i);
+        }
+
+        Console.WriteLine("-------------------------");
+
+        Root.Children?.Delete(0);
         for (int i = 0; i < Root.Children?.Length; i++)
         {
             Root.Children?.PrintChildren(i);
         }
     }
+
 }
 
