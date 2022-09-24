@@ -44,6 +44,29 @@ namespace ConsoleAppTree
             }
         }
 
+        public int Insert(params Node[] arr)
+        {
+            try
+            {
+                Array.Resize(ref nodes, nodes.Length + arr.Length);
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    nodes = nodes.Append(arr[i]).ToArray();
+                }
+                
+                return nodes.Length;
+            }
+
+            catch (ArgumentNullException ex)
+            {
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                throw;
+            }
+        }
+
+
         public void Delete(int index)
         {
 
