@@ -8,8 +8,9 @@ namespace ConsoleAppTree
 {
     internal static class AutoGeneration
     {
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        static char[] stringChars = new char[8];
+        //ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
+        const string chars = "abcdefghijklmnopqrstuvwxyz";
+        static char[] stringChars = new char[1];
         static Random random = new Random();
 
         public static string Generation()
