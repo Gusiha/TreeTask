@@ -7,6 +7,9 @@ namespace ConsoleAppTree
     class NodeList
     {
         private Node[] nodes;
+
+        public int Length { get { return nodes.Length; } private set { } }
+
         public NodeList(int amount)
         {
             nodes = new Node[amount];
