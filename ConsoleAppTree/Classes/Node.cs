@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConsoleAppTree
+﻿namespace ConsoleAppTree
 {
-    internal class Node
+    class Node
     {
-        NodeList Children;
-        string Text;
+        private NodeList? Children;
+        private string? Text;
 
         //TODO Create constructor
         public Node(string text, int amount)
         {
-            text = Console.ReadLine();
-            for (int i = 0; i < amount; i++)
-            {
-                Children = new NodeList();
-            }
-
+            if (text == null)
+                throw new ArgumentNullException("text parameter is null");
+            Text = text;
+            Children = new NodeList();
         }
     }
 }

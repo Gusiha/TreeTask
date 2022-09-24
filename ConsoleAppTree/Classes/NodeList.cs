@@ -2,29 +2,28 @@
 
 namespace ConsoleAppTree
 {
-    internal class NodeList
+    class NodeList
     {
-        private Node[] nodes = new Node[100];
-        
-        public NodeList(params Node[] arr)
+        //private Node[] nodes = new Node[100];
+        private Node[] nodes = new Node[0];
+        public NodeList()
         {
-            for (int i = 0; i < arr.Length; i++)
-            {
-                nodes.Append(arr[i]);
-            }
         }
 
-        int Insert(Node node)
+        /*        public NodeList(Node element)
+                {
+                    //var nodes1 = (Node[])nodes.Clone();
+                    Array.Resize(ref nodes, nodes.Length + 1);
+                    nodes = (Node[])nodes.Append(element);
+
+                }*/
+
+        public int Insert(Node node)
         {
             try
             {
-                Node[] NewNode = new Node[nodes.Length + 1];
-
-                for (int i = 0; i < nodes.Length; i++)
-                    NewNode[i] = nodes[i];
-
-                NewNode[NewNode.Length - 1] = node;
-                nodes = NewNode;
+                Array.Resize(ref nodes, nodes.Length + 1);
+                nodes = (Node[])nodes.Append(node);
                 return nodes.Length;
             }
             catch (ArgumentNullException ex)
@@ -33,36 +32,43 @@ namespace ConsoleAppTree
                 Debug.WriteLine(ex.Message);
                 Debug.Unindent();
                 throw;
-            } 
-        }
-           
-        void Delete(int index)
-        {
-            try
-            {
-                nodes[index] = null;
             }
-            catch (IndexOutOfRangeException ex)
-            {
-                Debug.WriteLine(ex.Message);
-                while (int.TryParse(Console.ReadLine(), out int result) == false)
-                {
-                    Debug.Indent();
-                    Debug.WriteLine("Incorrect symbol. Input index again: ");
-                    Debug.Unindent();
-                    if (int.TryParse(Console.ReadLine(), out result))
-                        break;                      
-                }
-                Delete(index);
-            }  
         }
 
-        int Search(Node node)
+        public void Delete(int index)
+        {
+            /*try
+            {*/
+            if (index < 0 || index >= nodes.Length)
+                throw new ArgumentOutOfRangeException("Incorrect index!");
+            var temporary = new Node[nodes.Length - 1];
+            var j = 0;
+            for(int i = 0; i < temporary.Length; i++)
+            {
+                if (j == index)
+                    j++;
+                temporary[i] = nodes[j];
+            }
+            nodes = temporary;
+
+
+            /*}
+            catch (IndexOutOfRangeException ex)
+            {
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.WriteLine("Incorrect symbol. Input index again: ");
+                Debug.Unindent();
+                throw new IndexOutOfRangeException("Incorrect index!");
+            }*/
+        }
+
+        public int Search(Node node)
         {
             //TODO Fix Search() method
             return Array.FindIndex(nodes, node => node != null);
         }
-        void Update(int index, Node node)
+        public void Update(int index, Node node)
         {
             try
             {
@@ -82,11 +88,10 @@ namespace ConsoleAppTree
                 Update(index, node);
             }
         }
-        Node? GetAt(int index)
+        public Node? GetAt(int index)
         {
             return nodes[index];
         }
 
-       
     }
 }
