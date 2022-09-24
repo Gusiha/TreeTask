@@ -10,7 +10,6 @@ namespace ConsoleAppTree
 
         private readonly string UnicodeSymbols = "│├─└";
 
-
         public int Length { get { return nodes.Length; } private set { } }
 
         public NodeList(int amount)
@@ -131,7 +130,9 @@ namespace ConsoleAppTree
 
                 while (int.TryParse(Console.ReadLine(), out index) == false)
                 {
-                    Console.WriteLine("Incorrect symbol. Input index again: ");
+                    Debug.Indent();
+                    Debug.WriteLine("Incorrect symbol. Input index again: ");
+                    Debug.Unindent();
                 }
                 Delete(index);
             }
