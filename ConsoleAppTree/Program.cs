@@ -10,7 +10,7 @@ class Program
         Node child2 = new("C", 0);
 
         Root.Children?.Update(1,new("IvanHunter",0));
-        
+
 
         for (int i = 0; i < Root.Children?.Length; i++)
         {
@@ -18,8 +18,8 @@ class Program
         }
 
         Console.WriteLine("-------------------------");
-
-        Root.Children?.Insert(child,child2);
+        Console.WriteLine(Root.Children.GetAt(1)) ;
+        Root.Children?.Insert(in child);
         for (int i = 0; i < Root.Children?.Length; i++)
         {
             Root.Children?.PrintChildren(i);

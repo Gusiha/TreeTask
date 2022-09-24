@@ -65,6 +65,22 @@ namespace ConsoleAppTree
             }
         }
 
+        public int Insert(in Node node)
+        {
+            try
+            {
+                Array.Resize(ref nodes, nodes.Length + 1);
+                nodes = nodes.Append(node).ToArray();
+                return nodes.Length;
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                throw;
+            }
+        }
 
         public void Delete(int index)
         {
@@ -142,8 +158,8 @@ namespace ConsoleAppTree
 
         public int Search(Node node)
         {
-            //TODO Fix Search() method
-            return Array.FindIndex(nodes, node => node != null);
+            //TODO To implement
+            return 2;
         }
         public void Update(int index, Node node)
         {
