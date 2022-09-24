@@ -51,27 +51,17 @@ namespace ConsoleAppTree
                 throw new ArgumentOutOfRangeException("Incorrect index!");
             var temporary = new Node[nodes.Length - 1];
 
-            if (index == 0)
+
+            for (int i = 0; i < index; i++)
             {
-                for (int i = 1; i < Length; i++)
-                {
-                    temporary[i - 1] = nodes[i];
-                }
+                temporary[i] = nodes[i];
             }
 
-            else
+            for (int i = index + 1; i < nodes.Length; i++)
             {
-
-                for (int i = 0; i < index; i++)
-                {
-                    temporary[i] = nodes[i];
-                }
-
-                for (int i = index + 1; i < nodes.Length; i++)
-                {
-                    temporary[i - 1] = nodes[i];
-                }
+                temporary[i - 1] = nodes[i];
             }
+
 
             nodes = temporary;
 
