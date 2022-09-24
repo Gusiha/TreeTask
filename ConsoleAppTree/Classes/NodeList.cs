@@ -47,35 +47,84 @@ namespace ConsoleAppTree
         public void Delete(int index)
         {
 
-            if (index < 0 || index >= nodes.Length)
-                throw new ArgumentOutOfRangeException("Incorrect index!");
-            var temporary = new Node[nodes.Length - 1];
-
-
-            for (int i = 0; i < index; i++)
+            try
             {
-                temporary[i] = nodes[i];
+                if (index < 0 || index >= nodes.Length)
+                    throw new ArgumentOutOfRangeException("Incorrect index!");
+                var temporary = new Node[nodes.Length - 1];
+
+
+                for (int i = 0; i < index; i++)
+                {
+                    temporary[i] = nodes[i];
+                }
+
+                for (int i = index + 1; i < nodes.Length; i++)
+                {
+                    temporary[i - 1] = nodes[i];
+                }
+
+                nodes = temporary;
             }
 
-            for (int i = index + 1; i < nodes.Length; i++)
-            {
-                temporary[i - 1] = nodes[i];
-            }
-
-
-            nodes = temporary;
-
-
-            /*}
-            catch (IndexOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException ex)
             {
                 Debug.Indent();
                 Debug.WriteLine(ex.Message);
-                Debug.WriteLine("Incorrect symbol. Input index again: ");
                 Debug.Unindent();
-                throw new IndexOutOfRangeException("Incorrect index!");
-            }*/
+
+                while (int.TryParse(Console.ReadLine(), out index) == false)
+                {
+                    Debug.Indent();
+                    Debug.WriteLine("Incorrect symbol. Input index again: ");
+                    Debug.Unindent();
+
+                }
+                Delete(index);
+            }
+
+
         }
+
+        public void ShortDelete(int index)
+        {
+            try
+            {
+                if ((index < 0) || (index >= nodes.Length))
+                    throw new ArgumentOutOfRangeException("index");
+
+                var temporary = new Node[nodes.Length - 1];
+                Array.Copy(nodes, 0, temporary, 0, index);
+                Array.Copy(nodes, index + 1, temporary, index, nodes.Length - index - 1);
+
+                nodes = temporary;
+            }
+
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+
+                while (int.TryParse(Console.ReadLine(), out index) == false)
+                {
+                    Console.WriteLine("Incorrect symbol. Input index again: ");
+                }
+                Delete(index);
+            }
+
+        }
+
+
+
+
+        //Debug.Indent();
+        //Debug.WriteLine(ex.Message);
+        //Debug.WriteLine("Incorrect symbol. Input index again: ");
+        //Debug.Unindent();
+        //throw new IndexOutOfRangeException("Incorrect index!");
+
+
 
         public int Search(Node node)
         {

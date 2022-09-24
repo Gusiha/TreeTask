@@ -21,7 +21,7 @@ class Program
 
         Console.WriteLine("-------------------------");
 
-        Root.Children?.Delete(0);
+        Root.Children?.Delete(520);
         for (int i = 0; i < Root.Children?.Length; i++)
         {
             Root.Children?.PrintChildren(i);
