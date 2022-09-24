@@ -1,29 +1,34 @@
 ﻿using System.Diagnostics;
+using static ConsoleAppTree.AutoGeneration;
+
 
 namespace ConsoleAppTree
 {
     class NodeList
     {
-        //private Node[] nodes = new Node[100];
-        private Node[] nodes = new Node[0];
-        public NodeList()
+        private Node[] nodes;
+        public NodeList(int amount)
         {
+            nodes = new Node[amount];
+            for (int i = 0; i < amount; i++)
+            {
+                nodes[i] = new Node(Generation(), 0);
+            }
         }
 
-        /*        public NodeList(Node element)
-                {
-                    //var nodes1 = (Node[])nodes.Clone();
-                    Array.Resize(ref nodes, nodes.Length + 1);
-                    nodes = (Node[])nodes.Append(element);
-
-                }*/
+        //public NodeList(Node element)
+        //{
+        //    //var nodes1 = (Node[])nodes.Clone();
+        //    Array.Resize(ref nodes, nodes.Length + 1);
+        //    nodes = (Node[])nodes.Append(element);
+        //}
 
         public int Insert(Node node)
         {
             try
             {
                 Array.Resize(ref nodes, nodes.Length + 1);
-                nodes = (Node[])nodes.Append(node);
+                nodes = nodes.Append(node).ToArray();
                 return nodes.Length;
             }
             catch (ArgumentNullException ex)
@@ -43,7 +48,7 @@ namespace ConsoleAppTree
                 throw new ArgumentOutOfRangeException("Incorrect index!");
             var temporary = new Node[nodes.Length - 1];
             var j = 0;
-            for(int i = 0; i < temporary.Length; i++)
+            for (int i = 0; i < temporary.Length; i++)
             {
                 if (j == index)
                     j++;
@@ -91,6 +96,11 @@ namespace ConsoleAppTree
         public Node? GetAt(int index)
         {
             return nodes[index];
+        }
+
+        public void PrintChildren(int index)
+        {
+            Console.WriteLine(nodes[index].Text);
         }
 
     }
