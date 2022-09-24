@@ -116,16 +116,6 @@ namespace ConsoleAppTree
         }
 
 
-
-
-        //Debug.Indent();
-        //Debug.WriteLine(ex.Message);
-        //Debug.WriteLine("Incorrect symbol. Input index again: ");
-        //Debug.Unindent();
-        //throw new IndexOutOfRangeException("Incorrect index!");
-
-
-
         public int Search(Node node)
         {
             //TODO Fix Search() method
@@ -151,14 +141,18 @@ namespace ConsoleAppTree
                 Update(index, node);
             }
         }
-        public Node? GetAt(int index)
+        public Node GetAt(int index)
         {
             return nodes[index];
         }
 
         public void PrintChildren(int index)
         {
-            Console.WriteLine(nodes[index].Text);
+            if (nodes[index] != null)
+            {
+                Console.WriteLine(nodes[index].Text);
+            }
+            
         }
 
     }
