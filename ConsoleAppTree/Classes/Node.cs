@@ -5,7 +5,6 @@ namespace ConsoleAppTree
     class Node
     {
         public NodeList? Children;
-        [DefaultValue("Test")]
         private string text;
  
 
