@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 using static ConsoleAppTree.AutoGeneration;
 
@@ -237,26 +238,33 @@ namespace ConsoleAppTree
             }
         }
 
-        
+
         public Node GetAt(int index)
         {
             return nodes[index];
         }
 
-        public Node GetAt(Node[] node, int index)
+        /*public Node GetAt(Node[] node, int index)
         {
             node = null; // по идее удаляю массив нодов, и тот самый node[index] из управляемой кучи ..... на самом деле мы присваиваем null копии, содержащей в себе ссылку, т.е. ссылку мы не трогаем
 
             return nodes[index]; // по идее в оригинальном массиве теперь тоже ничего нету, ведь как бы ссылочный тип в параметре
+        }*/
+
+        public void GetAtRef(ref Node node, int key)
+        {
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                Node temp = nodes[i].Children.Search(key);
+                node.Text = temp != null ? temp.Text : node.Text ;
+            }
         }
 
-        public Node GetAt(ref Node[] node, int index)
+        public void GetAtOut(out Node node, int key)
         {
-            var node2 = node; // переприсваивание node внутри метода не понадобилось
-            node2 = null; // а здесь уже хранится присваивается null самой ссылке
-
-            return nodes[index];   // после этого массив будет недоступен (собран сборщиком мусора)
-
+            node = null;
+            for (int i = 0; i < nodes.Length; i++)
+                node = nodes[i].Children.Search(key);
         }
 
         //TODO [VLAD] Я в комментах к этому методу(ниже) написал в чем главная разница между ref и out (можешь глянуть видосик сереги https://youtu.be/4Z6e-qwK_Wc, )

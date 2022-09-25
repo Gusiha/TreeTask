@@ -10,7 +10,11 @@ class Program
         Node child = new("B", 0);
         Node child2 = new("C", 0);
 
-        
+        Root.Children.GetAtOut(out Node node, 3);
+
+        Node node1 = new("A", 0);
+        Root.Children.GetAtRef(ref node1, 3);
+
         Root.Children?.Update(1,new("IvanHunter",0));
 
         //TODO [VLAD] в этот метод нужно вставить Node[], но nodes из NodeList - private, тут либо public ставить[нехорошо], либо свойство для него писать[хорошо].
