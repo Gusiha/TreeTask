@@ -184,11 +184,38 @@ namespace ConsoleAppTree
         }
 
 
-        public int Search(Node node)
+        public Node? Search(string text)
         {
-            //TODO [Все] Реализовать поиск node по всему дереву(он не работает, если что:) )
-            return 2;
+            for(int i = 0; i < nodes.Length; i++)
+            {
+                if (nodes[i].Text == text)
+                    return nodes[i];
+                else if (nodes[i].Children != null)
+                {
+                    var node = nodes[i].Children.Search(text);
+                    if (node != null)
+                        return node;
+                }
+            }
+            return null;
         }
+
+        public Node? Search(int key)
+        {
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if (nodes[i].Key == key)
+                    return nodes[i];
+                else if (nodes[i].Children != null)
+                {
+                    var node = nodes[i].Children.Search(key);
+                    if (node != null)
+                        return node;
+                }
+            }
+            return null;
+        }
+
         public void Update(int index, Node node)
         {
             try
@@ -239,13 +266,13 @@ namespace ConsoleAppTree
         //                  не могут существовать вместе (они не считаются перегрузками)
         //Нужно как-то показать эту разницу. Можешь, к примеру, с параметрами поиграться, типа убрать или добавить что-то => получится перегрузка
 
-        public Node GetAt(out Node[] node, int index)
+        /*public Node GetAt(out Node[] node, int index)
         {
             node = null; // переприсваивание внутри метода обязательно для out-параметра + null присваивается самой ссылке, то есть NodeList nodes - будет уничтожен.
 
             return nodes[index];
         }
-
+*/
 
 
 
