@@ -4,6 +4,7 @@ namespace ConsoleAppTree
 {
     class Node
     {
+        static int StaticKey = -1;
         public NodeList? Children;
         private string _text;
  
@@ -22,6 +23,7 @@ namespace ConsoleAppTree
 
             Text = text;
             Children = new NodeList(amount);
+            key = StaticKey++;
         }
 
     }
