@@ -25,8 +25,9 @@ namespace ConsoleAppTree
             text ??= "default";
 
             Text = text;
-            Children = new NodeList(amount);
             _key = StaticKey++;
+            Children = new NodeList(amount);
+            
         }
 
     }
