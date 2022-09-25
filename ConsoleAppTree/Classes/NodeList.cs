@@ -10,10 +10,6 @@ namespace ConsoleAppTree
     {
         private Node[] nodes;
 
-        //TODO [IVAN,Senya] напишите функцию Print(). Ниже есть символы, юзайте их. Насчет реализации: у Вани там был какой-то пример.
-        private readonly string UnicodeSymbols = "│├─└";
-
-
         public int Length { get { return nodes.Length; } private set { } }
 
         public NodeList(int amount)
@@ -25,18 +21,13 @@ namespace ConsoleAppTree
             }
         }
 
-        public static void Print(Node root)
-        {
-            //Print() intendes for IVAN
-            Console.WriteLine();
-        }
-
+        // Добавляет дефолтное значение
         public int Insert()
         {
             try
             {
                 Array.Resize(ref nodes, nodes.Length + 1);
-                nodes = nodes.Append(new("Default", 0)).ToArray();
+                nodes = nodes.Append(new()).ToArray();
                 return nodes.Length;
             }
             catch (ArgumentNullException ex)
@@ -121,47 +112,47 @@ namespace ConsoleAppTree
             return;
         }
 
-        //private void Delete(int index)
-        //{
+        private void DeleteCustom(int index)
+        {
 
-        //    try
-        //    {
-        //        if (index < 0 || index >= nodes.Length)
-        //            throw new ArgumentOutOfRangeException("Incorrect index!");
-        //        var temporary = new Node[nodes.Length - 1];
-
-
-        //        for (int i = 0; i < index; i++)
-        //        {
-        //            temporary[i] = nodes[i];
-        //        }
-
-        //        for (int i = index + 1; i < nodes.Length; i++)
-        //        {
-        //            temporary[i - 1] = nodes[i];
-        //        }
-
-        //        nodes = temporary;
-        //    }
-
-        //    catch (ArgumentOutOfRangeException ex)
-        //    {
-        //        Debug.Indent();
-        //        Debug.WriteLine(ex.Message);
-        //        Debug.Unindent();
-
-        //        while (int.TryParse(Console.ReadLine(), out index) == false)
-        //        {
-        //            Debug.Indent();
-        //            Debug.WriteLine("Incorrect symbol. Input index again: ");
-        //            Debug.Unindent();
-
-        //        }
-        //        Delete(index);
-        //    }
+            try
+            {
+                if (index < 0 || index >= nodes.Length)
+                    throw new ArgumentOutOfRangeException("Incorrect index!");
+                var temporary = new Node[nodes.Length - 1];
 
 
-        //}
+                for (int i = 0; i < index; i++)
+                {
+                    temporary[i] = nodes[i];
+                }
+
+                for (int i = index + 1; i < nodes.Length; i++)
+                {
+                    temporary[i - 1] = nodes[i];
+                }
+
+                nodes = temporary;
+            }
+
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+
+                while (int.TryParse(Console.ReadLine(), out index) == false)
+                {
+                    Debug.Indent();
+                    Debug.WriteLine("Incorrect symbol. Input index again: ");
+                    Debug.Unindent();
+
+                }
+                Delete(index);
+            }
+
+
+        }
 
         private void ShortDelete(int index)
         {

@@ -4,7 +4,7 @@ namespace ConsoleAppTree
 {
     class Node
     {
-        static int StaticKey = -1;
+        private static int StaticKey = -1;
         public NodeList? Children;
         private string _text;
         private readonly int _key;
