@@ -16,7 +16,7 @@ namespace ConsoleAppTree
         public string Text
         {
             get { return _text; }
-            private set { _text = value; }
+            set { _text = value; }
         }
 
 

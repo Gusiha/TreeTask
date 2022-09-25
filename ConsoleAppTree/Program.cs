@@ -12,12 +12,14 @@ class Program
         Root.Children?.Update(0, child);
         Root.Children?.Update(1, child2);
 
-        Root.Children?.GetAt(1).Children?.Update(0, new());
-        Root.Children?.GetAt(1).Children?.Delete(14);
+        Root.Children.GetAtOut(out Node node, 3);
+
+        Node node1 = new("A", 0);
+        Root.Children.GetAtRef(ref node1, 3);
+
+        Root.Children?.Update(1,new("IvanHunter",0));
 
         Console.WriteLine("Конец");
-
-        
 
         //Root.Children?.Update(1,new("IvanHunter",0));
 
