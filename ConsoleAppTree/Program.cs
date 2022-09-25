@@ -19,7 +19,7 @@ class Program
 
         Root.Children?.Update(1,new("IvanHunter",0));
 
-        
+        Console.WriteLine("Конец");
 
         //Root.Children?.Update(1,new("IvanHunter",0));
 
