@@ -259,8 +259,17 @@ namespace ConsoleAppTree
         {
             for (int i = 0; i < nodes.Length; i++)
             {
+                if (nodes[i].Key == key)
+                {
+                    node = nodes[i];
+                    break;
+                }
                 Node temp = nodes[i].Children.Search(key);
-                node.Text = temp != null ? temp.Text : node.Text ;
+                if (temp != null)
+                {
+                    node.Text = temp.Text;
+                    break;
+                }
             }
         }
 
@@ -268,7 +277,16 @@ namespace ConsoleAppTree
         {
             node = null;
             for (int i = 0; i < nodes.Length; i++)
+            {
+                if (nodes[i].Key == key)
+                {
+                    node = nodes[i];
+                    break;
+                }
                 node = nodes[i].Children.Search(key);
+                if (node != null)
+                    break;
+            }
         }
 
         //TODO [VLAD] Я в комментах к этому методу(ниже) написал в чем главная разница между ref и out (можешь глянуть видосик сереги https://youtu.be/4Z6e-qwK_Wc, )
