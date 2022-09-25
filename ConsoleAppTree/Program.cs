@@ -15,7 +15,7 @@ class Program
 
         //TODO [VLAD] в этот метод нужно вставить Node[], но nodes из NodeList - private, тут либо public ставить[нехорошо], либо свойство для него писать[хорошо].
         //В перегрузках GetAt показана разница обычного Node[], ref Node[], out Node[], можешь глянуть, возможно я что-то неправильно сделал и ты успеешь сделать по-другому.
-        Root.Children?.GetAt()
+        //Root.Children?.GetAt()
 
         for (int i = 0; i < Root.Children?.Length; i++)
         {

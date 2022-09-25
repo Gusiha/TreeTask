@@ -5,22 +5,21 @@ namespace ConsoleAppTree
     class Node
     {
         public NodeList? Children;
-        [DefaultValue("Test")]
-        private string text;
+        private string _text;
  
 
 
         public string Text
         {
-            get { return text; }
-            private set { text = value; }
+            get { return _text; }
+            private set { _text = value; }
         }
 
 
-        public Node(string text, int amount)
+        public Node(string text = "default", int amount = 1)
         {
-            if (text == null)
-                throw new ArgumentNullException("text parameter is null");
+            text ??= "default";
+
             Text = text;
             Children = new NodeList(amount);
         }
