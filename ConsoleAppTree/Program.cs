@@ -14,8 +14,8 @@ class Program
 
         Root.Children.GetAtOut(out Node node, 3);
 
-        Node node1 = new("A", 0);
-        Root.Children.GetAtRef(ref node1, 3);
+        Node node1 = new("C", 9);
+        Root.Children.GetAtRef(ref node1, 10);
 
         Root.Children?.Update(1,new("IvanHunter",0));
 
