@@ -5,17 +5,17 @@ using static ConsoleAppTree.AutoGeneration;
 
 namespace ConsoleAppTree
 {
-    
+
     class NodeList
     {
         private Node[] nodes;
 
-        //TODO Print() intendes for IVAN
+        //TODO [IVAN,Senya] напишите функцию Print(). Ниже есть символы, юзайте их. Насчет реализации: у Вани там был какой-то пример.
         private readonly string UnicodeSymbols = "│├─└";
 
 
-        
-        
+
+
 
         public int Length { get { return nodes.Length; } private set { } }
 
@@ -39,7 +39,7 @@ namespace ConsoleAppTree
             try
             {
                 Array.Resize(ref nodes, nodes.Length + 1);
-                nodes = nodes.Append(new("Default",0)).ToArray();
+                nodes = nodes.Append(new("Default", 0)).ToArray();
                 return nodes.Length;
             }
             catch (ArgumentNullException ex)
@@ -50,8 +50,8 @@ namespace ConsoleAppTree
                 throw;
             }
         }
-       
-     
+
+
         public int Insert(Node node)
         {
             try
@@ -78,7 +78,7 @@ namespace ConsoleAppTree
                 {
                     nodes = nodes.Append(arr[i]).ToArray();
                 }
-                
+
                 return nodes.Length;
             }
 
@@ -108,7 +108,7 @@ namespace ConsoleAppTree
             }
         }
 
-        
+
 
         public void Delete(int index)
         {
@@ -152,41 +152,41 @@ namespace ConsoleAppTree
 
         }
 
-        //public void ShortDelete(int index)
-        //{
-        //    try
-        //    {
-        //        if ((index < 0) || (index >= nodes.Length))
-        //            throw new ArgumentOutOfRangeException("index");
+        public void ShortDelete(int index)
+        {
+            try
+            {
+                if ((index < 0) || (index >= nodes.Length))
+                    throw new ArgumentOutOfRangeException("index");
 
-        //        var temporary = new Node[nodes.Length - 1];
-        //        Array.Copy(nodes, 0, temporary, 0, index);
-        //        Array.Copy(nodes, index + 1, temporary, index, nodes.Length - index - 1);
+                var temporary = new Node[nodes.Length - 1];
+                Array.Copy(nodes, 0, temporary, 0, index);
+                Array.Copy(nodes, index + 1, temporary, index, nodes.Length - index - 1);
 
-        //        nodes = temporary;
-        //    }
+                nodes = temporary;
+            }
 
-        //    catch (ArgumentOutOfRangeException ex)
-        //    {
-        //        Debug.Indent();
-        //        Debug.WriteLine(ex.Message);
-        //        Debug.Unindent();
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
 
-        //        while (int.TryParse(Console.ReadLine(), out index) == false)
-        //        {
-        //            Debug.Indent();
-        //            Debug.WriteLine("Incorrect symbol. Input index again: ");
-        //            Debug.Unindent();
-        //        }
-        //        ShortDelete(index);
-        //    }
+                while (int.TryParse(Console.ReadLine(), out index) == false)
+                {
+                    Debug.Indent();
+                    Debug.WriteLine("Incorrect symbol. Input index again: ");
+                    Debug.Unindent();
+                }
+                ShortDelete(index);
+            }
 
-        //}
+        }
 
 
         public int Search(Node node)
         {
-            //TODO To implement
+            //TODO [Все] Реализовать поиск node по всему дереву(он не работает, если что:) )
             return 2;
         }
         public void Update(int index, Node node)
@@ -209,10 +209,45 @@ namespace ConsoleAppTree
                 Update(index, node);
             }
         }
+
+        
         public Node GetAt(int index)
         {
             return nodes[index];
         }
+
+        public Node GetAt(Node[] node, int index)
+        {
+            node = null; // по идее удаляю массив нодов, и тот самый node[index] из управляемой кучи ..... на самом деле мы присваиваем null копии, содержащей в себе ссылку, т.е. ссылку мы не трогаем
+
+            return nodes[index]; // по идее в оригинальном массиве теперь тоже ничего нету, ведь как бы ссылочный тип в параметре
+        }
+
+        public Node GetAt(ref Node[] node, int index)
+        {
+            var node2 = node; // переприсваивание node внутри метода не понадобилось
+            node2 = null; // а здесь уже хранится присваивается null самой ссылке
+
+            return nodes[index];   // после этого массив будет недоступен (собран сборщиком мусора)
+
+        }
+
+        //TODO [VLAD] Я в комментах к этому методу(ниже) написал в чем главная разница между ref и out (можешь глянуть видосик сереги https://youtu.be/4Z6e-qwK_Wc, )
+        //Проблема в том, что GetAt(ref Node[] node, int index)
+        //                  и
+        //                    GetAt(out Node[] node, int index)
+        //                  не могут существовать вместе (они не считаются перегрузками)
+        //Нужно как-то показать эту разницу. Можешь, к примеру, с параметрами поиграться, типа убрать или добавить что-то => получится перегрузка
+
+        public Node GetAt(out Node[] node, int index)
+        {
+            node = null; // переприсваивание внутри метода обязательно для out-параметра + null присваивается самой ссылке, то есть NodeList nodes - будет уничтожен.
+
+            return nodes[index];
+        }
+
+
+
 
         public void PrintChildren(int index)
         {
