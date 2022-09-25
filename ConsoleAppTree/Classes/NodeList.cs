@@ -200,6 +200,21 @@ namespace ConsoleAppTree
             return null;
         }
 
+        public Node? Search(int key)
+        {
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if (nodes[i].Key == key)
+                    return nodes[i];
+                else if (nodes[i].Children != null)
+                {
+                    var node = nodes[i].Children.Search(key);
+                    if (node != null)
+                        return node;
+                }
+            }
+            return null;
+        }
 
         public void Update(int index, Node node)
         {
