@@ -1,14 +1,21 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using static ConsoleAppTree.AutoGeneration;
 
 
 namespace ConsoleAppTree
 {
+    
     class NodeList
     {
         private Node[] nodes;
 
+        //TODO Print() intendes for IVAN
         private readonly string UnicodeSymbols = "│├─└";
+
+
+        
+        
 
         public int Length { get { return nodes.Length; } private set { } }
 
@@ -23,9 +30,28 @@ namespace ConsoleAppTree
 
         public static void Print(Node root)
         {
+            //Print() intendes for IVAN
             Console.WriteLine();
         }
 
+        public int Insert()
+        {
+            try
+            {
+                Array.Resize(ref nodes, nodes.Length + 1);
+                nodes = nodes.Append(new("Default",0)).ToArray();
+                return nodes.Length;
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                throw;
+            }
+        }
+       
+     
         public int Insert(Node node)
         {
             try
@@ -82,6 +108,8 @@ namespace ConsoleAppTree
             }
         }
 
+        
+
         public void Delete(int index)
         {
 
@@ -124,36 +152,36 @@ namespace ConsoleAppTree
 
         }
 
-        public void ShortDelete(int index)
-        {
-            try
-            {
-                if ((index < 0) || (index >= nodes.Length))
-                    throw new ArgumentOutOfRangeException("index");
+        //public void ShortDelete(int index)
+        //{
+        //    try
+        //    {
+        //        if ((index < 0) || (index >= nodes.Length))
+        //            throw new ArgumentOutOfRangeException("index");
 
-                var temporary = new Node[nodes.Length - 1];
-                Array.Copy(nodes, 0, temporary, 0, index);
-                Array.Copy(nodes, index + 1, temporary, index, nodes.Length - index - 1);
+        //        var temporary = new Node[nodes.Length - 1];
+        //        Array.Copy(nodes, 0, temporary, 0, index);
+        //        Array.Copy(nodes, index + 1, temporary, index, nodes.Length - index - 1);
 
-                nodes = temporary;
-            }
+        //        nodes = temporary;
+        //    }
 
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Debug.Indent();
-                Debug.WriteLine(ex.Message);
-                Debug.Unindent();
+        //    catch (ArgumentOutOfRangeException ex)
+        //    {
+        //        Debug.Indent();
+        //        Debug.WriteLine(ex.Message);
+        //        Debug.Unindent();
 
-                while (int.TryParse(Console.ReadLine(), out index) == false)
-                {
-                    Debug.Indent();
-                    Debug.WriteLine("Incorrect symbol. Input index again: ");
-                    Debug.Unindent();
-                }
-                Delete(index);
-            }
+        //        while (int.TryParse(Console.ReadLine(), out index) == false)
+        //        {
+        //            Debug.Indent();
+        //            Debug.WriteLine("Incorrect symbol. Input index again: ");
+        //            Debug.Unindent();
+        //        }
+        //        ShortDelete(index);
+        //    }
 
-        }
+        //}
 
 
         public int Search(Node node)

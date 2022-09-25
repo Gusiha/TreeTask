@@ -1,9 +1,14 @@
-﻿namespace ConsoleAppTree
+﻿using System.ComponentModel;
+
+namespace ConsoleAppTree
 {
     class Node
     {
         public NodeList? Children;
+        [DefaultValue("Test")]
         private string text;
+ 
+
 
         public string Text
         {
