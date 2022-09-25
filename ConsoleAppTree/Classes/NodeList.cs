@@ -14,9 +14,6 @@ namespace ConsoleAppTree
         private readonly string UnicodeSymbols = "│├─└";
 
 
-
-
-
         public int Length { get { return nodes.Length; } private set { } }
 
         public NodeList(int amount)
@@ -108,51 +105,65 @@ namespace ConsoleAppTree
             }
         }
 
-
-
-        public void Delete(int index)
+        public void Delete(int key)
         {
-
-            try
+            for (int i = 0; i < nodes.Length; i++)
             {
-                if (index < 0 || index >= nodes.Length)
-                    throw new ArgumentOutOfRangeException("Incorrect index!");
-                var temporary = new Node[nodes.Length - 1];
-
-
-                for (int i = 0; i < index; i++)
+                if (nodes[i].Key == key)
+                    ShortDelete(i);
+                else if (nodes[i].Children != null)
                 {
-                    temporary[i] = nodes[i];
+                    var node = nodes[i].Children?.Search(key);
+                    if (node != null)
+                        ShortDelete(i);
                 }
-
-                for (int i = index + 1; i < nodes.Length; i++)
-                {
-                    temporary[i - 1] = nodes[i];
-                }
-
-                nodes = temporary;
             }
-
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Debug.Indent();
-                Debug.WriteLine(ex.Message);
-                Debug.Unindent();
-
-                while (int.TryParse(Console.ReadLine(), out index) == false)
-                {
-                    Debug.Indent();
-                    Debug.WriteLine("Incorrect symbol. Input index again: ");
-                    Debug.Unindent();
-
-                }
-                Delete(index);
-            }
-
-
+            return;
         }
 
-        public void ShortDelete(int index)
+        //private void Delete(int index)
+        //{
+
+        //    try
+        //    {
+        //        if (index < 0 || index >= nodes.Length)
+        //            throw new ArgumentOutOfRangeException("Incorrect index!");
+        //        var temporary = new Node[nodes.Length - 1];
+
+
+        //        for (int i = 0; i < index; i++)
+        //        {
+        //            temporary[i] = nodes[i];
+        //        }
+
+        //        for (int i = index + 1; i < nodes.Length; i++)
+        //        {
+        //            temporary[i - 1] = nodes[i];
+        //        }
+
+        //        nodes = temporary;
+        //    }
+
+        //    catch (ArgumentOutOfRangeException ex)
+        //    {
+        //        Debug.Indent();
+        //        Debug.WriteLine(ex.Message);
+        //        Debug.Unindent();
+
+        //        while (int.TryParse(Console.ReadLine(), out index) == false)
+        //        {
+        //            Debug.Indent();
+        //            Debug.WriteLine("Incorrect symbol. Input index again: ");
+        //            Debug.Unindent();
+
+        //        }
+        //        Delete(index);
+        //    }
+
+
+        //}
+
+        private void ShortDelete(int index)
         {
             try
             {
@@ -192,7 +203,7 @@ namespace ConsoleAppTree
                     return nodes[i];
                 else if (nodes[i].Children != null)
                 {
-                    var node = nodes[i].Children.Search(text);
+                    var node = nodes[i].Children?.Search(text);
                     if (node != null)
                         return node;
                 }
@@ -208,13 +219,15 @@ namespace ConsoleAppTree
                     return nodes[i];
                 else if (nodes[i].Children != null)
                 {
-                    var node = nodes[i].Children.Search(key);
+                    var node = nodes[i].Children?.Search(key);
                     if (node != null)
                         return node;
                 }
             }
             return null;
         }
+
+       
 
         public void Update(int index, Node node)
         {
